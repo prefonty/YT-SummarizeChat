@@ -4,7 +4,7 @@
 
 ### What does it do?
 
-The YouGPTube Summarizer is a Python-based application that utilizes advanced language models from OpenAI and Anthropic to summarize YouTube videos. Given a YouTube URL, it fetches the video transcript and generates both a detailed summary and a TL;DR version. The summarization can be done using either OpenAI's models (including GPT-4) or Anthropic's Claude-3.5 models. Additionally, users can chat with the transcript content using the integrated chat interface.
+The YT-SummarizeChat is a Python-based application that utilizes advanced language models from OpenAI and Anthropic to summarize YouTube videos. Given a YouTube URL, it fetches the video transcript and generates both a detailed summary and a TL;DR version. The summarization can be done using either OpenAI's models (including GPT-4) or Anthropic's Claude-3.5 models. Additionally, users can chat with the transcript content using the integrated chat interface.
 
 ### Why is it useful?
 
