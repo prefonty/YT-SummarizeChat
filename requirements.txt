@@ -5,3 +5,4 @@ soundfile
 yt-dlp
 python-dotenv
 anthropic
+youtube_transcript_api
