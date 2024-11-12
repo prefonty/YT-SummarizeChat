@@ -1,43 +1,35 @@
-# Youtube Summarizer with Claude-2, OpenAI & Whisper
+# Youtube Summarizer with Claude-3.5 & OpenAI
 
 ## Overview
 
 ### What does it do?
 
-The YouGPTube Summarizer is a Python-based application that utilizes advanced machine learning models from OpenAI and Anthropics to summarize YouTube videos. Given a YouTube URL, it downloads the video, extracts the audio, transcribes it, and then summarizes the content. The summarization can be done using either OpenAI's GPT-3.5 or Anthropics' Claude model. 
+The YouGPTube Summarizer is a Python-based application that utilizes advanced language models from OpenAI and Anthropic to summarize YouTube videos. Given a YouTube URL, it fetches the video transcript and generates both a detailed summary and a TL;DR version. The summarization can be done using either OpenAI's models (including GPT-4) or Anthropic's Claude-3.5 models. Additionally, users can chat with the transcript content using the integrated chat interface.
 
 ### Why is it useful?
 
-Ever felt overwhelmed by the amount of content in a lengthy YouTube video and wished for a concise summary? The YouGPTube Summarizer can help you get the essence of a video in a fraction of the time it takes to watch it. Moreover, by using Whisper API for transcription, it can transcribe videos in multiple languages and generate summaries, thus breaking the language barrier.
+Ever felt overwhelmed by the amount of content in a lengthy YouTube video and wished for a concise summary? The YouGPTube Summarizer can help you get the essence of a video in a fraction of the time it takes to watch it. The interactive chat feature allows you to ask specific questions about the video content, making it perfect for research, study, or quick content review.
 
-### Video Demo
+## Features
 
-https://github.com/agniiva/YoutubeGPTClaude/assets/73607864/480edb2c-3fdb-4c68-9cc0-cd89b1090ed6
-
-The Generations here are 3x fasten up! it took around 3-4 minutes for a video of 16 minutes, but its pretty accurate.
-
+- Transcript-based summarization
+- Dual summarization: detailed summary and TL;DR
+- Interactive chat interface to ask questions about the video content
+- Support for multiple AI models:
+  - Anthropic: claude-3.5-sonnet, claude-3.5-haiku
+  - OpenAI: gpt-4o, gpt-4o-mini, o1-mini, o1-preview
+- Clean tabbed interface for different functionalities
+- Real-time processing status and timing information
 
 ### Tech Implementation
 
-Under the hood, the application uses several Python libraries such as `streamlit` for the web interface, `librosa` for audio processing, `openai` for transcription and summarization, and `yt_dlp` for YouTube video downloading. It has different functions to handle tasks like audio downloading, chunking, transcribing, and summarizing.
+Under the hood, the application uses several Python libraries:
+- `streamlit` for the web interface
+- `youtube_transcript_api` for transcript fetching
+- `openai` and `anthropic` for AI processing
+- `python-dotenv` for environment management
 
 ## Prerequisites
-
-### Install ffmpeg
-
-The program uses ffmpeg for audio processing. Make sure to install it in your system. You can install it using the package manager for your system.
-
-For Ubuntu:
-
-```bash
-sudo apt-get install ffmpeg
-```
-
-For macOS:
-
-```bash
-brew install ffmpeg
-```
 
 ### Python Dependencies
 
@@ -49,12 +41,11 @@ pip install -r requirements.txt
 
 ### API Keys
 
-You'll need to obtain API keys for OpenAI and Anthropics (Claude). Store these keys in `.env.example` and rename the file to `.env`. 
-
-You can also automatically rename the `.env.example` file by running the following command:
+You'll need to obtain API keys for OpenAI and Anthropic. Store these keys in `.env`:
 
 ```bash
-mv .env.example .env
+OPENAI_API_KEY=your_openai_key_here
+ANTHROPIC_API_KEY=your_anthropic_key_here
 ```
 
 ## Running the Application
@@ -62,56 +53,47 @@ mv .env.example .env
 To run the app, navigate to the directory where the code is located and run:
 
 ```bash
-streamlit run <filename>.py
+streamlit run trans.py
 ```
 
-## Code Documentation
+## Usage Guide
 
-### Importing Libraries
+1. **Summarize Tab:**
+   - Enter a YouTube URL
+   - Select your preferred AI provider (OpenAI or Anthropic)
+   - Choose a specific model
+   - Click 'Summarize' to generate both a TL;DR and detailed summary
+   - Watch the real-time progress and timing information
 
-- `streamlit`: For creating the web interface
-- `os, shutil`: For file and directory operations
-- `librosa`: For audio processing
-- `openai`: For OpenAI API calls
-- `soundfile as sf`: For audio file processing
-- `yt_dlp`: For downloading YouTube videos
-- `anthropic`: For Anthropics (Claude) API
-- `dotenv`: For loading environment variables
+2. **Chat Tab:**
+   - After loading a transcript in the Summarize tab
+   - Switch to the Chat tab
+   - Ask questions about the video content
+   - Get AI-powered responses based on the transcript
+   - Use the 'Clear Chat History' button to start fresh
 
-### Functions
+## Code Structure
 
-#### `find_audio_files(path, extension=".mp3")`
+### Key Functions
 
-Finds all audio files in the given path with the specified extension.
+- `get_youtube_id(url)`: Extracts video ID from YouTube URL
+- `get_transcript(video_id)`: Fetches video transcript using YouTube API
+- `chunk_text(text)`: Splits text into manageable chunks
+- `summarize_openai(chunks, system_prompt)`: Generates summary using OpenAI models
+- `summarize_claude(chunks, system_prompt)`: Generates summary using Claude models
+- `chat_with_transcript(question, model_name)`: Handles chat functionality
+- `summarize_youtube_video()`: Main orchestration function
 
-#### `youtube_to_mp3(youtube_url: str, output_dir: str) -> str`
+## Contributing
 
-Downloads the YouTube video from the given URL and saves it as an mp3 file in the specified directory.
+Feel free to open issues or submit pull requests with improvements.
 
-#### `chunk_audio(filename, segment_length: int, output_dir)`
+## License
 
-Chunks the given audio file into segments of specified length (in seconds) and saves them in the specified directory.
+[Your chosen license]
 
-#### `transcribe_audio(audio_files: list, output_file=None, model="whisper-1") -> list`
+## Acknowledgments
 
-Transcribes the given audio files using OpenAI's Whisper model.
-
-#### `summarize_openai(chunks: list[str], system_prompt: str, model="gpt-3.5-turbo", output_file=None)`
-
-Summarizes the given list of text chunks using OpenAI's GPT-3.5 model.
-
-#### `summarize_claude(chunks: list[str], system_prompt: str, model="claude-2", output_file=None)`
-
-Summarizes the given list of text chunks using Anthropics' Claude model.
-
-#### `summarize_youtube_video(youtube_url, outputs_dir, progress_bar, progress_text, summarization_function)`
-
-Main function that orchestrates the summarization process.
-
-### Streamlit UI (`main()`)
-
-Streamlit interface for user inputs and displaying summaries.
-
-## Customization
-
-You can customize the summarization by changing the `system_prompt`. This allows you to tailor the summary to your specific needs.
+- OpenAI for their GPT models
+- Anthropic for Claude-3.5
+- YouTube for their transcript API
