@@ -1,4 +1,4 @@
-# Youtube Summarizer with Claude-3.5 & OpenAI
+# Summarize and Chat Youtube Videos (using SOTA LLMs)
 
 ## Overview
 
