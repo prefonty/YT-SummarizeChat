@@ -1,4 +1,4 @@
-# Summarize and Chat Youtube Videos (using SOTA LLMs)
+# Summarize Youtube Videos and Chat with the summary
 
 ## Overview
 
