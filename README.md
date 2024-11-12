@@ -1,4 +1,4 @@
-# Youtube Summarizer with Claude-3.5 & OpenAI
+# Summarize Youtube Videos and Chat with the summary
 
 ## Overview
 
